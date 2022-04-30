@@ -1,2 +1,2 @@
-# orthorobot
-Runs on LÖVE 0.9.2 - 0.10.2
+# Ortho Robot
+Runs on LÖVE 11.0 - 11.4
