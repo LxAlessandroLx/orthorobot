@@ -61,4 +61,3 @@ function intro_keypressed()
 	stabsound:stop()
 	menu_load()
 end
-	
