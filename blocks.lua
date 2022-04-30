@@ -53,6 +53,6 @@ for i = 2, #blockcolors do
 		for k = 1, 3 do
 			gridcolors[i][j][k] = blockcolors[i][6-j][k] * griddarkenfactor
 		end		
-		gridcolors[i][j][4] = 255
+		gridcolors[i][j][4] = 1
 	end
 end

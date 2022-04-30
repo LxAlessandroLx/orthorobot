@@ -10,19 +10,10 @@
 --Other credits
 --yay.png (star) by http://www.psdgraphics.com/
 
---Version compatibility stuff
-major, minor, revision, codename = love.getVersion()
-if major == 0 and minor <= 9 then
-	lbutton = "l"
-	rbutton = "r"
-else
-	lbutton = 1
-	rbutton = 2
-end
+lbutton = 1
+rbutton = 2
+
 math.mod = math.fmod
-if not love.graphics.drawq then
-	love.graphics.drawq = love.graphics.draw
-end
 
 local lg_polygon = love.graphics.polygon
 local lg_setColor = love.graphics.setColor
@@ -98,8 +89,8 @@ function love.load()
 	pi175 = math.pi*1.75
 	pi2 = math.pi*2
 	
-	fillcolor = {11, 63, 27}
-	outlinecolor = {7, 37, 16}
+	fillcolor = {11/255, 63/255, 27/255}
+	outlinecolor = {7/255, 37/255, 16/255}
 	
 	logo = love.graphics.newImage("stabyourself.png")
 	logoblood = love.graphics.newImage("stabyourselfblood.png")
@@ -219,8 +210,8 @@ function love.update(dt)
 	while rainbowi > 1 do
 		rainbowi = rainbowi - 1
 	end
-	fillcolor = getrainbowcolor(rainbowi, 100)
-	outlinecolor = getrainbowcolor(rainbowi, 50)
+	fillcolor = getrainbowcolor(rainbowi, 100/255)
+	outlinecolor = getrainbowcolor(rainbowi, 50/255)
 	c = getrainbowcolor(rainbowi)
 	for i = 1, 3 do
 		c[i] = c[i] + (255-c[i])*0.5
@@ -345,7 +336,7 @@ function loadmap(name)
 		name = string.sub(name, 1, -5)
 	end
 	
-	if love.filesystem.getInfo("maps/" .. name .. ".txt") == false or love.filesystem.getInfo("maps/" .. name .. ".png") == false then
+	if love.filesystem.getInfo("maps/" .. name .. ".txt") == nil or love.filesystem.getInfo("maps/" .. name .. ".png") == nil then
 		return false
 	end
 	
@@ -452,7 +443,7 @@ function loadmenumap(name)
 		name = string.sub(name, 1, -5)
 	end
 	
-	if love.filesystem.getInfo("maps/" .. name .. ".txt") == false or love.filesystem.getInfo("maps/" .. name .. ".png") == false then
+	if love.filesystem.getInfo("maps/" .. name .. ".txt") == nil or love.filesystem.getInfo("maps/" .. name .. ".png") == nil then
 		return false
 	end
 	
@@ -559,14 +550,14 @@ function drawtile(cox, coy, coz, tile, xd, yd, zd)
 		if perspective ~= "up" then
 			if playerx == cox and playery == coy and playerz == coz then
 				local x, y = convertGRDtoSCR(pl.drawx, pl.drawy, pl.drawz)
-				love.graphics.setColor(255, 255, 255, 255*fadecolor)
+				love.graphics.setColor(1, 1, 1, fadecolor)
 				if won == false then
-					love.graphics.drawq(playerimg, playerquad[1], round(x), round(y+halfboxwidth*pitch*0.6), 0, playerscale, playerscale, 10, 20)
-					love.graphics.setColor(255, 255, 255, 255*coinglowa)
+					love.graphics.draw(playerimg, playerquad[1], round(x), round(y+halfboxwidth*pitch*0.6), 0, playerscale, playerscale, 10, 20)
+					love.graphics.setColor(1, 1, 1, coinglowa)
 					love.graphics.draw(coinglowimg, round(x), round(y+halfboxwidth*pitch*0.6), 0, playerscale/4, playerscale/4, 29, 89)
 				else
-					love.graphics.drawq(playerimg, playerquad[2], round(x), round(y+halfboxwidth*pitch*0.6), 0, playerscale, playerscale, 10, 20)
-					love.graphics.setColor(0, 255, 0, 255*fadecolor)
+					love.graphics.draw(playerimg, playerquad[2], round(x), round(y+halfboxwidth*pitch*0.6), 0, playerscale, playerscale, 10, 20)
+					love.graphics.setColor(0, 1, 0, fadecolor)
 					love.graphics.rectangle("fill", round(x)-2*playerscale, round(y+halfboxwidth*pitch*0.6)-16*playerscale-winwindowtimer/1*3*playerscale, 4*playerscale, winwindowtimer/1*3*playerscale)
 				end
 			end
@@ -576,7 +567,7 @@ function drawtile(cox, coy, coz, tile, xd, yd, zd)
 	for i, v in pairs(coins) do
 		if v[1] == cox and v[2] == coy and v[3] == coz then
 			local x, y = convertGRDtoSCR(cox, coy, coz)
-			love.graphics.setColor(255, 255, 255, 255*fadecolor)
+			love.graphics.setColor(1, 1, 1, fadecolor)
 			love.graphics.draw(coinimg, round(x), round(y+halfboxwidth*pitch*0.6-(math.sin(rainbowi*pi2)+1)*halfboxwidth/6+3*playerscale), 0, playerscale, playerscale, 10, 20)
 		end
 	end
@@ -737,7 +728,7 @@ function round(num, idp)
 end
 
 function loadsave()
-	if not love.filesystem.getInfo("save.txt") then
+	if love.filesystem.getInfo("save.txt") == nil then
 		return
 	end
 	
@@ -844,7 +835,7 @@ end
 
 function getrainbowcolor(i, whiteness)
 	if not whiteness then
-		whiteness = 255
+		whiteness = 1
 	end
 	local r, g, b
 	if i < 1/6 then

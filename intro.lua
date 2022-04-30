@@ -27,14 +27,14 @@ end
 
 function intro_draw()
 	if introprogress >= 0 and introprogress < introduration then
-		local a = 255
+		local a = 1
 		if introprogress < introfadetime then
-			a = introprogress/introfadetime * 255
+			a = introprogress/introfadetime
 		elseif introprogress >= introduration-introfadetime then
-			a = (1-(introprogress-(introduration-introfadetime))/introfadetime) * 255
+			a = (1-(introprogress-(introduration-introfadetime))/introfadetime)
 		end
 		
-		love.graphics.setColor(255, 255, 255, a)
+		love.graphics.setColor(1, 1, 1, a)
 		
 		if introprogress > introfadetime+0.3 and introprogress < introduration - introfadetime then
 			local y = (introprogress-0.2-introfadetime) / (introduration-2*introfadetime) * 206 * 5
@@ -48,7 +48,7 @@ function intro_draw()
 			love.graphics.draw(logo, screenwidth/2-142, screenheight/2-150)
 		end
 	end
-	love.graphics.setColor(fillcolor[1], fillcolor[2], fillcolor[3], 255)
+	love.graphics.setColor(fillcolor[1], fillcolor[2], fillcolor[3], 1)
 	love.graphics.draw(scanlineimg, 0, math.mod(creditss*3, 5)-5)
 end
 
