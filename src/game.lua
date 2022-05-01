@@ -1162,7 +1162,6 @@ function game_mousepressed(x, y, button)
 		v:mousepressed(x, y, button)
 	end
 	
-	print(fadegoal)
 	if button == rbutton or button == lbutton and (not gamepaused and fadegoal ~= "menu") then
 		updateperspective("none")
 		rotatedrag = true
