@@ -19,17 +19,17 @@ local lg_polygon = love.graphics.polygon
 local lg_setColor = love.graphics.setColor
 
 function love.load()
-	require "intro"
-	require "menu"
-	require "game"
-	require "blocks"
-	require "class"
-	require "block"
-	require "player"
-	require "backgroundblock"
-	require "menubutton"
-	require "levelbutton"
-	require "pausebutton"
+	require "src.intro"
+	require "src.menu"
+	require "src.game"
+	require "src.blocks"
+	require "src.class"
+	require "src.block"
+	require "src.player"
+	require "src.backgroundblock"
+	require "src.menubutton"
+	require "src.levelbutton"
+	require "src.pausebutton"
 	
 	math.randomseed(os.time());math.random();math.random()
 	
